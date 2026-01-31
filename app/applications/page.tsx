@@ -144,13 +144,13 @@ export default function ApplicationsPage() {
         {/* Header */}
         <div className="flex items-start justify-between">
           <div>
-            <h2 className="text-3xl font-bold tracking-tight text-foreground">Application Guidance</h2>
-            <p className="text-muted-foreground">Your personalized application roadmap</p>
+            <h2 className="text-3xl font-bold tracking-tight text-foreground">Counselling & Application Roadmap</h2>
+            <p className="text-muted-foreground">Your personalized roadmap for a successful study abroad journey</p>
           </div>
           {lockedUnis.length > 0 && (
             <div className="hidden sm:flex items-center gap-2 px-3 py-1.5 bg-background border border-border rounded-full shadow-sm text-sm font-medium">
               <Lock className="h-3.5 w-3.5 text-primary" />
-              {lockedUnis.length} Universities Locked
+              {lockedUnis.length} Universities in Counselling
             </div>
           )}
         </div>
@@ -177,7 +177,7 @@ export default function ApplicationsPage() {
           <div className="space-y-4">
             <div className="flex items-center gap-2 mb-2">
               <CheckCircle className="h-5 w-5 text-primary" />
-              <h3 className="font-bold text-lg">Your Universities</h3>
+              <h3 className="font-bold text-lg">Counselling in Progress</h3>
             </div>
             {lockedUnis.length === 0 ? (
               <Card className="p-6 border-dashed text-center text-muted-foreground">
@@ -242,9 +242,9 @@ export default function ApplicationsPage() {
         <div className="space-y-4 pt-4">
           <div className="flex items-center gap-2 mb-2">
             <div className="p-1 rounded-full bg-transparent">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-primary h-5 w-5"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+              <CheckCircle className="h-5 w-5 text-primary" />
             </div>
-            <h3 className="font-bold text-lg">Your Application Tasks</h3>
+            <h3 className="font-bold text-lg">Your Counselling Tasks</h3>
           </div>
           <Card className="divide-y divide-border overflow-hidden">
             {appTasks.map(task => (

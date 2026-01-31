@@ -44,6 +44,7 @@ interface University {
   matchScore: number
   category: 'Dream' | 'Target' | 'Reach' | 'Safety'
   website: string
+  image?: string
 }
 
 const MOCK_UNIVERSITIES: University[] = [
@@ -61,7 +62,7 @@ const MOCK_UNIVERSITIES: University[] = [
     matchScore: 85,
     category: 'Dream',
     website: 'https://mit.edu',
-    // image: '/assets/mit.jpg'
+    image: '/assets/mit.jpg'
   },
   {
     id: '2',
@@ -77,7 +78,7 @@ const MOCK_UNIVERSITIES: University[] = [
     matchScore: 82,
     category: 'Dream',
     website: 'https://stanford.edu',
-    // image: '/assets/stanford.jpg'
+    image: '/assets/stanford.jpg'
   },
   {
     id: '3',
@@ -93,7 +94,7 @@ const MOCK_UNIVERSITIES: University[] = [
     matchScore: 78,
     category: 'Target',
     website: 'https://utoronto.ca',
-    // image: '/assets/toronto.jpg'
+    image: '/assets/toronto.jpg'
   },
   {
     id: '4',
@@ -109,7 +110,7 @@ const MOCK_UNIVERSITIES: University[] = [
     matchScore: 76,
     category: 'Target',
     website: 'https://ubc.ca',
-    // image: '/assets/ubc.jpg'
+    image: '/assets/ubc.jpg'
   },
   {
     id: '5',
@@ -125,7 +126,7 @@ const MOCK_UNIVERSITIES: University[] = [
     matchScore: 74,
     category: 'Target',
     website: 'https://imperial.ac.uk',
-    // image: '/assets/imperial.jpg'
+    image: '/assets/imperial.jpg'
   },
   {
     id: '6',
@@ -141,7 +142,7 @@ const MOCK_UNIVERSITIES: University[] = [
     matchScore: 80,
     category: 'Target',
     website: 'https://ethz.ch',
-    // image: '/assets/zurich.jpg'
+    image: '/assets/zurich.jpg'
   }
 ]
 
@@ -225,7 +226,13 @@ export default function UniversitiesPage() {
     localStorage.setItem('shortlistedUniversities', JSON.stringify(newShortlisted))
 
     if (isAdding) {
-      toast.success(`${uni?.name || 'University'} added to shortlist`, { position: "bottom-right" })
+      toast.success(`${uni?.name || 'University'} added to shortlist`, {
+        position: "bottom-right",
+        action: {
+          label: 'Go to Locking',
+          onClick: () => window.location.href = '/locked-universities'
+        }
+      })
     } else {
       toast.info(`${uni?.name || 'University'} removed from shortlist`, { position: "bottom-right" })
     }
@@ -333,97 +340,99 @@ export default function UniversitiesPage() {
         {viewMode === 'grid' ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {filtered.map((uni) => (
-              <Card key={uni.id} className="group flex flex-col justify-between bg-card border-2 border-border/60 hover:border-primary/50 overflow-hidden rounded-[20px] p-6 shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
-                <div>
+              <Card key={uni.id} className={`group relative flex flex-col justify-between bg-card border-2 overflow-hidden rounded-[20px] shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1 ${shortlisted.includes(uni.id) ? 'border-primary' : 'border-border/60 hover:border-primary/50'}`}>
+                <div className="p-6">
                   {/* Header: Name + Badge */}
-                  <div className="flex justify-between items-start gap-3 mb-2">
-                    <h3 className="text-xl font-bold text-foreground leading-tight group-hover:text-primary transition-colors">
+                  <div className="flex justify-between items-start gap-4 mb-1">
+                    <h3 className="text-xl font-bold text-foreground leading-tight group-hover:text-primary transition-colors pr-20">
                       {uni.name}
                     </h3>
-                    {uni.category === 'Dream' && (
-                      <span className="shrink-0 inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-orange-100 dark:bg-orange-900/30 text-orange-600 dark:text-orange-400 text-xs font-bold border border-orange-200 dark:border-orange-800">
-                        <Star className="h-3 w-3 fill-current" /> Dream
-                      </span>
-                    )}
-                    {uni.category === 'Target' && (
-                      <span className="shrink-0 inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 text-xs font-bold border border-blue-200 dark:border-blue-800">
-                        <Target className="h-3 w-3" /> Target
-                      </span>
-                    )}
+                    <div className="absolute top-6 right-6">
+                      {uni.category === 'Dream' && (
+                        <span className="shrink-0 inline-flex items-center gap-1 px-3 py-1 rounded-full bg-orange-100 dark:bg-orange-900/30 text-orange-600 dark:text-orange-400 text-xs font-bold border border-orange-200 dark:border-orange-800">
+                          <Star className="h-3 w-3 fill-current" /> Dream
+                        </span>
+                      )}
+                      {uni.category === 'Target' && (
+                        <span className="shrink-0 inline-flex items-center gap-1 px-3 py-1 rounded-full bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 text-xs font-bold border border-blue-200 dark:border-blue-800">
+                          <Target className="h-3 w-3" /> Target
+                        </span>
+                      )}
+                    </div>
                   </div>
 
                   {/* Location */}
-                  <div className="flex items-center gap-1.5 text-muted-foreground text-sm mb-5">
+                  <div className="flex items-center gap-1.5 text-muted-foreground text-sm mb-4">
                     <MapPin className="h-3.5 w-3.5" />
                     {uni.location}
                   </div>
 
                   {/* Stats Grid */}
-                  <div className="grid grid-cols-2 gap-y-3 gap-x-4 mb-5">
+                  <div className="grid grid-cols-2 gap-y-3 gap-x-4 mb-4">
                     <div className="flex items-center gap-2">
                       <TrendingUp className="h-4 w-4 text-muted-foreground" />
-                      <span className="text-sm font-semibold text-foreground">Rank #{uni.ranking}</span>
+                      <span className="text-sm text-foreground font-medium">Rank #{uni.ranking}</span>
                     </div>
                     <div className="flex items-center gap-2">
                       <Target className="h-4 w-4 text-muted-foreground" />
-                      <span className="text-sm font-semibold text-foreground">{uni.admissionRate}% accept</span>
+                      <span className="text-sm text-foreground font-medium">{uni.admissionRate}% accept</span>
                     </div>
                     <div className="col-span-2 flex items-center gap-2">
                       <DollarSign className="h-4 w-4 text-muted-foreground" />
-                      <span className="text-sm font-semibold text-foreground">{uni.tuitionRange}</span>
+                      <span className="text-sm text-foreground font-medium">{uni.tuitionRange}</span>
                     </div>
                   </div>
 
                   {/* Programs */}
                   <div className="space-y-2 mb-6">
-                    <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide">Programs:</p>
+                    <p className="text-xs font-bold text-muted-foreground uppercase tracking-tight">Programs:</p>
                     <div className="flex flex-wrap gap-2">
                       {uni.programs.slice(0, 3).map(p => (
-                        <span key={p} className="px-2.5 py-1 bg-muted/50 text-foreground text-xs font-medium rounded-lg border border-border/50">
+                        <span key={p} className="px-3 py-1 bg-muted/60 text-foreground text-xs font-medium rounded-lg border border-border/40">
                           {p}
                         </span>
                       ))}
                       {uni.programs.length > 3 && (
-                        <span className="px-2.5 py-1 bg-muted/50 text-muted-foreground text-xs font-medium rounded-lg border border-border/50">
+                        <span className="px-3 py-1 bg-muted/60 text-muted-foreground text-xs font-medium rounded-lg border border-border/40">
                           +{uni.programs.length - 3}
                         </span>
                       )}
                     </div>
                   </div>
-                </div>
 
-                {/* Match Score & Action */}
-                <div className="space-y-4 pt-4 border-t border-border/50">
-                  <div className="space-y-1.5">
-                    <div className="flex justify-between items-center text-sm">
-                      <span className="font-bold text-foreground">Match Score:</span>
-                      <span className="font-bold text-foreground">{uni.matchScore}%</span>
+                  {/* Match Score & Action Footer */}
+                  <div className="flex items-center justify-between gap-4 pt-4 mt-auto border-t border-border/50">
+                    <div className="flex-1 space-y-2">
+                      <div className="flex justify-between items-center text-sm font-bold">
+                        <span className="text-foreground">Match Score:</span>
+                        <span className="text-foreground">{uni.matchScore}%</span>
+                      </div>
+                      <div className="h-2 w-full bg-muted rounded-full overflow-hidden">
+                        <div
+                          className="h-full bg-linear-to-r from-violet-500 to-cyan-500 rounded-full transition-all duration-1000"
+                          style={{ width: `${uni.matchScore}%` }}
+                        />
+                      </div>
                     </div>
-                    <div className="h-2 w-full bg-muted rounded-full overflow-hidden">
-                      <div
-                        className="h-full bg-linear-to-r from-blue-500 to-purple-600 rounded-full transition-all duration-1000"
-                        style={{ width: `${uni.matchScore}%` }}
-                      />
-                    </div>
+
+                    <Button
+                      className={`shrink-0 h-10 px-4 font-bold rounded-xl transition-all duration-300 ${shortlisted.includes(uni.id)
+                        ? 'bg-primary hover:bg-primary/90 text-white shadow-lg shadow-primary/20'
+                        : 'bg-transparent hover:bg-muted text-foreground border border-border hover:border-primary/30'
+                        }`}
+                      onClick={(e) => toggleShortlist(uni.id, e)}
+                    >
+                      {shortlisted.includes(uni.id) ? (
+                        <div className="flex items-center gap-1.5">
+                          <Check className="h-4 w-4" /> <span>Shortlisted</span>
+                        </div>
+                      ) : (
+                        <div className="flex items-center gap-1.5">
+                          <Plus className="h-4 w-4" /> <span>Shortlist</span>
+                        </div>
+                      )}
+                    </Button>
                   </div>
-
-                  <Button
-                    className={`w-full font-bold rounded-xl transition-all duration-300 ${shortlisted.includes(uni.id)
-                      ? 'bg-primary hover:bg-primary/90 text-white shadow-lg shadow-primary/25'
-                      : 'bg-transparent hover:bg-muted text-foreground border-2 border-border hover:border-primary/20'
-                      }`}
-                    onClick={(e) => toggleShortlist(uni.id, e)}
-                  >
-                    {shortlisted.includes(uni.id) ? (
-                      <>
-                        <Check className="h-4 w-4 mr-2" /> Shortlisted
-                      </>
-                    ) : (
-                      <>
-                        <Plus className="h-4 w-4 mr-2" /> Shortlist
-                      </>
-                    )}
-                  </Button>
                 </div>
               </Card>
             ))}

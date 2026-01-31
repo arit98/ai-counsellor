@@ -16,7 +16,8 @@ import {
   BookOpen,
   ArrowRight,
   Sparkles,
-  TrendingUp
+  TrendingUp,
+  Lock
 } from 'lucide-react'
 import { DashboardShell } from '@/components/DashboardShell'
 
@@ -278,6 +279,24 @@ export default function DashboardPage() {
                       <p className="text-muted-foreground text-sm flex-1">Track your application tasks and follow our step-by-step roadmap.</p>
                       <div className="flex items-center gap-2 mt-4 text-cyan-400 text-sm font-medium group-hover:gap-3 transition-all">
                         View Progress <ArrowRight className="h-4 w-4" />
+                      </div>
+                    </div>
+                  </div>
+                </Link>
+
+                <Link href="/locked-universities" className="group">
+                  <div className="relative h-full overflow-hidden rounded-2xl bg-card border border-border hover:border-emerald-500/30 transition-colors">
+                    <div className="absolute top-0 right-0 w-32 h-32 bg-linear-to-br from-emerald-600/10 to-transparent rounded-full blur-2xl" />
+                    <div className="relative p-6 h-full flex flex-col">
+                      <div className="flex items-center gap-3 mb-3">
+                        <div className="p-2 bg-emerald-500/10 rounded-lg">
+                          <Lock className="h-5 w-5 text-emerald-400" />
+                        </div>
+                        <span className="font-bold text-lg text-foreground">Finalize Applications</span>
+                      </div>
+                      <p className="text-muted-foreground text-sm flex-1">Review your shortlist and lock your final university choices to start applying.</p>
+                      <div className="flex items-center gap-2 mt-4 text-emerald-400 text-sm font-medium group-hover:gap-3 transition-all">
+                        Go to Locking <ArrowRight className="h-4 w-4" />
                       </div>
                     </div>
                   </div>

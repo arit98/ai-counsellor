@@ -10,7 +10,8 @@ import {
     Target,
     MapPin,
     TrendingUp,
-    CheckCircle2
+    CheckCircle2,
+    Check
 } from 'lucide-react'
 import {
     Dialog,
@@ -211,26 +212,30 @@ export default function LockedUniversitiesPage() {
 
                 {/* Header Section */}
                 <div className="space-y-2">
-                    <h2 className="text-3xl font-bold tracking-tight">University Locking</h2>
-                    <p className="text-muted-foreground">Lock your final choices to begin the application process</p>
+                    <h2 className="text-3xl font-bold tracking-tight">University Locking for Counselling</h2>
+                    <p className="text-muted-foreground">Lock your final choices to start your personalized counselling journey</p>
                 </div>
 
                 {/* Info Banner */}
-                <div className="bg-card border-l-4 border-primary shadow-sm rounded-r-xl p-6 flex flex-col sm:flex-row gap-4 items-start sm:items-center bg-linear-to-r from-card to-secondary/20">
-                    <div className="p-3 bg-primary/10 rounded-full text-primary shrink-0">
+                <div className="bg-card border border-border shadow-sm rounded-2xl p-6 flex flex-col sm:flex-row gap-5 items-start sm:items-center relative overflow-hidden group">
+                    <div className="absolute top-0 left-0 w-1.5 h-full bg-linear-to-b from-violet-600 to-cyan-500" />
+                    <div className="p-3 bg-violet-500/10 rounded-xl text-violet-500 shrink-0">
                         <Lock className="h-6 w-6" />
                     </div>
                     <div>
-                        <h3 className="font-semibold text-lg text-foreground mb-1">Lock at least one university to start applying</h3>
-                        <p className="text-sm text-muted-foreground">Once you lock a university, you&apos;ll get personalized application guidance, document checklists, and timeline recommendations.</p>
+                        <h3 className="font-bold text-lg text-foreground mb-1">Lock at least one university to start counselling</h3>
+                        <p className="text-sm text-muted-foreground/80">Once you lock a university, you&apos;ll get personalized application guidance, document checklists, and expert counselling support.</p>
                     </div>
                 </div>
 
-                {/* Shortlisted Section */}
-                <div className="space-y-4">
+                {/* Shortlisted Section (Now first according to image 1, but user asked for locked first before...) */}
+                {/* Actually image 1 shows Shortlisted Universities below the banner. */}
+                <div className="space-y-6 pt-4">
                     <div className="flex items-center gap-2">
-                        <Target className="h-5 w-5 text-muted-foreground" />
-                        <h3 className="text-xl font-semibold text-foreground">Shortlisted Universities</h3>
+                        <div className="p-1 bg-muted rounded-md text-muted-foreground">
+                            <Target className="h-5 w-5" />
+                        </div>
+                        <h3 className="text-xl font-bold text-foreground">Shortlisted Universities</h3>
                     </div>
 
                     {shortlistedUniversities.length === 0 && lockedUniversities.length === 0 ? (
@@ -240,89 +245,101 @@ export default function LockedUniversitiesPage() {
                         </div>
                     ) : null}
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 pt-2">
                         {shortlistedUniversities.map(uni => (
-                            <Card key={uni.id} className="p-5 flex flex-col justify-between h-auto gap-4 border-l-4 border-l-transparent hover:border-l-primary transition-all shadow-sm hover:shadow-md">
-                                <div className="flex justify-between items-start">
-                                    <div>
-                                        <h4 className="font-bold text-lg line-clamp-2 leading-tight mb-1">{uni.name}</h4>
-                                        <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
-                                            <MapPin className="h-3 w-3" /> {uni.location}
+                            <Card key={uni.id} className="relative group overflow-hidden bg-card border border-border/60 hover:border-primary/50 transition-all shadow-sm hover:shadow-lg rounded-2xl flex flex-col">
+                                {uni.image && (
+                                    <div className="h-32 w-full relative overflow-hidden">
+                                        <img src={uni.image} alt={uni.name} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" />
+                                        <div className="absolute inset-0 bg-linear-to-t from-black/50 to-transparent" />
+                                    </div>
+                                )}
+                                <div className="p-6 space-y-4 flex flex-col flex-1">
+                                    <div className="flex justify-between items-start gap-3">
+                                        <div className="space-y-1">
+                                            <h4 className="font-bold text-lg text-foreground line-clamp-2 leading-tight">
+                                                {uni.name}
+                                            </h4>
+                                            <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
+                                                <MapPin className="h-3.5 w-3.5" />
+                                                {uni.location}
+                                            </div>
+                                        </div>
+                                        {uni.category === 'Dream' ? (
+                                            <span className="shrink-0 inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-orange-100 text-orange-600 text-[10px] font-bold border border-orange-200">
+                                                <Star className="h-3 w-3 fill-current" /> Dream
+                                            </span>
+                                        ) : (
+                                            <span className="shrink-0 inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-blue-100 text-blue-600 text-[10px] font-bold border border-blue-200">
+                                                <Target className="h-3 w-3" /> Target
+                                            </span>
+                                        )}
+                                    </div>
+
+                                    <div className="flex items-center justify-between text-xs font-semibold text-foreground/80 py-2 border-y border-border/50">
+                                        <div className="flex items-center gap-1.5">
+                                            <TrendingUp className="h-3.5 w-3.5 text-muted-foreground" />
+                                            <span>Rank #{uni.ranking}</span>
+                                        </div>
+                                        <div className="flex items-center gap-1.5">
+                                            <span className="text-muted-foreground font-medium">Match:</span>
+                                            <span className="text-primary font-bold">{uni.matchScore}%</span>
                                         </div>
                                     </div>
-                                    {uni.category === 'Dream' ? (
-                                        <span className="shrink-0 inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-orange-100 text-orange-600 text-[10px] font-bold border border-orange-200">
-                                            <Star className="h-3 w-3 fill-current" /> Dream
-                                        </span>
-                                    ) : (
-                                        <span className="shrink-0 inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-blue-100 text-blue-600 text-[10px] font-bold border border-blue-200">
-                                            <Target className="h-3 w-3" /> Target
-                                        </span>
-                                    )}
-                                </div>
 
-                                <div className="flex items-center justify-between text-sm py-2 border-t border-b border-border/50 my-1">
-                                    <div className="flex items-center gap-1.5 text-muted-foreground">
-                                        <TrendingUp className="h-4 w-4" />
-                                        <span>Rank #{uni.ranking}</span>
-                                    </div>
-                                    <div className="flex items-center gap-1.5 font-bold text-foreground">
-                                        <span>Match: {uni.matchScore}%</span>
-                                    </div>
+                                    <Button
+                                        className="w-full mt-auto h-11 bg-primary hover:bg-primary/90 text-white shadow-md transition-all font-bold gap-2 rounded-xl"
+                                        onClick={() => handleLockClick(uni)}
+                                    >
+                                        <Lock className="h-4 w-4" />
+                                        Lock for Counselling
+                                    </Button>
                                 </div>
-
-                                <Button
-                                    className="w-full bg-linear-to-r from-violet-600 to-indigo-600 hover:from-violet-700 hover:to-indigo-700 text-white shadow-md transition-all font-semibold"
-                                    onClick={() => handleLockClick(uni)}
-                                >
-                                    <Lock className="h-4 w-4 mr-2" /> Lock for Application
-                                </Button>
                             </Card>
                         ))}
                     </div>
-                </div>
 
-                {/* Locked Section (Optional, if we want to show already locked ones) */}
-                {lockedUniversities.length > 0 && (
-                    <div className="space-y-4 pt-4 border-t border-border">
-                        <div className="flex items-center gap-2">
-                            <CheckCircle2 className="h-5 w-5 text-green-600" />
-                            <h3 className="text-xl font-semibold text-foreground">Locked for Application</h3>
-                        </div>
-                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                            {lockedUniversities.map(uni => (
-                                <Card key={uni.id} className="p-5 flex flex-col justify-between h-auto gap-4 border-l-4 border-l-green-500 bg-green-50/10 shadow-sm">
-                                    <div className="flex justify-between items-start">
-                                        <div>
-                                            <h4 className="font-bold text-lg line-clamp-2 leading-tight mb-1">{uni.name}</h4>
-                                            <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
-                                                <MapPin className="h-3 w-3" /> {uni.location}
+                    {/* Locked Section */}
+                    {lockedUniversities.length > 0 && (
+                        <div className="space-y-4 pt-8 border-t border-border/60 mt-4">
+                            <div className="flex items-center gap-2">
+                                <div className="p-1 bg-green-500/10 rounded-md text-green-500">
+                                    <CheckCircle2 className="h-5 w-5" />
+                                </div>
+                                <h3 className="text-xl font-bold text-foreground">Universities in Counselling</h3>
+                            </div>
+                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                                {lockedUniversities.map(uni => (
+                                    <Card key={uni.id} className="p-6 bg-green-500/5 border border-green-500/20 shadow-sm rounded-2xl flex flex-col gap-4">
+                                        <div className="flex justify-between items-start gap-3">
+                                            <div className="space-y-1 text-green-950 dark:text-green-300">
+                                                <h4 className="font-bold text-lg line-clamp-2 leading-tight">{uni.name}</h4>
+                                                <div className="flex items-center gap-1.5 text-xs opacity-70">
+                                                    <MapPin className="h-3 w-3" /> {uni.location}
+                                                </div>
+                                            </div>
+                                            <span className="shrink-0 inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-green-100 text-green-700 text-[10px] font-bold border border-green-200">
+                                                <Check className="h-3 w-3" /> Locked
+                                            </span>
+                                        </div>
+                                        <div className="flex items-center justify-between text-xs py-2 border-y border-green-500/10 text-green-900/60 dark:text-green-300/60">
+                                            <div className="flex items-center gap-1.5">
+                                                <TrendingUp className="h-3.5 w-3.5" />
+                                                <span>Rank #{uni.ranking}</span>
+                                            </div>
+                                            <div className="flex items-center gap-1.5 font-bold">
+                                                <span>Match: {uni.matchScore}%</span>
                                             </div>
                                         </div>
-                                        <span className="shrink-0 inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-green-100 text-green-700 text-[10px] font-bold border border-green-200">
-                                            Locked
-                                        </span>
-                                    </div>
-                                    <div className="flex items-center justify-between text-sm py-2 border-t border-b border-border/50 my-1">
-                                        <div className="flex items-center gap-1.5 text-muted-foreground">
-                                            <TrendingUp className="h-4 w-4" />
-                                            <span>Rank #{uni.ranking}</span>
+                                        <div className="flex items-center gap-2 text-green-600 dark:text-green-400 text-sm font-bold bg-green-500/10 p-2.5 rounded-lg justify-center">
+                                            <CheckCircle2 className="h-4 w-4" /> Counselling Started
                                         </div>
-                                        <div className="flex items-center gap-1.5 font-bold text-foreground">
-                                            <span>Match: {uni.matchScore}%</span>
-                                        </div>
-                                    </div>
-                                    <Button
-                                        variant="outline"
-                                        className="w-full border-green-200 text-green-700 hover:bg-green-50 cursor-default"
-                                    >
-                                        Application Started
-                                    </Button>
-                                </Card>
-                            ))}
+                                    </Card>
+                                ))}
+                            </div>
                         </div>
-                    </div>
-                )}
+                    )}
+                </div>
 
                 {/* Lock Confirmation Dialog */}
                 <Dialog open={!!universityToLock} onOpenChange={(open) => !open && setUniversityToLock(null)}>
@@ -330,7 +347,7 @@ export default function LockedUniversitiesPage() {
                         <DialogHeader>
                             <DialogTitle className="text-xl">Lock {universityToLock?.name}?</DialogTitle>
                             <DialogDescription className="pt-2">
-                                Locking this university means you&apos;re committing to apply here. You&apos;ll get personalized guidance for:
+                                Locking this university means you are starting your personalized counselling journey here. You&apos;ll get expert guidance for:
                             </DialogDescription>
                         </DialogHeader>
                         <div className="py-2 space-y-2">
@@ -347,9 +364,9 @@ export default function LockedUniversitiesPage() {
                             </Button>
                             <Button
                                 onClick={confirmLock}
-                                className="bg-blue-600 hover:bg-blue-700 text-white font-bold"
+                                className="bg-blue-600 hover:bg-blue-700 text-white font-bold h-11 px-6 rounded-xl"
                             >
-                                Lock University
+                                Start Counselling
                             </Button>
                         </DialogFooter>
                     </DialogContent>

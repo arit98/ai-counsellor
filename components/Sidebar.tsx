@@ -28,7 +28,7 @@ export function Sidebar() {
         { icon: LayoutDashboard, label: 'Dashboard', href: '/dashboard', id: 'overview' },
         { icon: MessageSquare, label: 'AI Counsellor', href: '/ai-counsellor', id: 'ai-counsellor' },
         { icon: Globe, label: 'Universities', href: '/universities', id: 'universities' },
-        { icon: Lock, label: 'Locked Unis', href: '/locked-universities', id: 'locked' },
+        { icon: Lock, label: 'Locked Universities', href: '/locked-universities', id: 'locked' },
         { icon: CheckSquare, label: 'Applications', href: '/applications', id: 'applications' },
     ]
 
