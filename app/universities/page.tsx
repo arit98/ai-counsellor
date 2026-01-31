@@ -1,8 +1,6 @@
 'use client'
 
 import { useState, useEffect, useMemo } from 'react'
-import Image from 'next/image'
-import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Card } from '@/components/ui/card'
@@ -46,7 +44,6 @@ interface University {
   matchScore: number
   category: 'Dream' | 'Target' | 'Reach' | 'Safety'
   website: string
-  image?: string
 }
 
 const MOCK_UNIVERSITIES: University[] = [
@@ -64,7 +61,7 @@ const MOCK_UNIVERSITIES: University[] = [
     matchScore: 85,
     category: 'Dream',
     website: 'https://mit.edu',
-    image: '/assets/mit.jpg'
+    // image: '/assets/mit.jpg'
   },
   {
     id: '2',
@@ -80,7 +77,7 @@ const MOCK_UNIVERSITIES: University[] = [
     matchScore: 82,
     category: 'Dream',
     website: 'https://stanford.edu',
-    image: '/assets/stanford.jpg'
+    // image: '/assets/stanford.jpg'
   },
   {
     id: '3',
@@ -96,7 +93,7 @@ const MOCK_UNIVERSITIES: University[] = [
     matchScore: 78,
     category: 'Target',
     website: 'https://utoronto.ca',
-    image: '/assets/toronto.jpg'
+    // image: '/assets/toronto.jpg'
   },
   {
     id: '4',
@@ -112,7 +109,7 @@ const MOCK_UNIVERSITIES: University[] = [
     matchScore: 76,
     category: 'Target',
     website: 'https://ubc.ca',
-    image: '/assets/ubc.jpg' // Generic placeholder if not exists
+    // image: '/assets/ubc.jpg'
   },
   {
     id: '5',
@@ -128,7 +125,7 @@ const MOCK_UNIVERSITIES: University[] = [
     matchScore: 74,
     category: 'Target',
     website: 'https://imperial.ac.uk',
-    image: '/assets/imperial.jpg'
+    // image: '/assets/imperial.jpg'
   },
   {
     id: '6',
@@ -144,7 +141,7 @@ const MOCK_UNIVERSITIES: University[] = [
     matchScore: 80,
     category: 'Target',
     website: 'https://ethz.ch',
-    image: '/assets/zurich.jpg'
+    // image: '/assets/zurich.jpg'
   }
 ]
 
