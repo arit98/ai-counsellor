@@ -73,7 +73,7 @@ export default function ApplicationsPage() {
   })
 
   useEffect(() => {
-    const init = async () => {
+    async function init() {
       setIsLoading(true)
       await fetchProfile()
 
@@ -100,12 +100,14 @@ export default function ApplicationsPage() {
     init()
   }, [])
 
-  const fetchProfile = async () => {
+  async function fetchProfile() {
     try {
       const response = await fetch('/api/profile')
       const data = await response.json()
       if (data && data._id) setProfile(data)
-    } catch (e) { console.error(e) }
+    } catch (e) {
+      console.error(e)
+    }
   }
 
   const toggleChecklistItem = (id: string) => {

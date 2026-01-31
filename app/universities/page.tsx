@@ -196,7 +196,7 @@ export default function UniversitiesPage() {
     init()
   }, [])
 
-  const fetchProfile = async () => {
+  async function fetchProfile() {
     try {
       const response = await fetch('/api/profile')
       const data = await response.json()
@@ -204,7 +204,7 @@ export default function UniversitiesPage() {
     } catch (e) { console.error(e) }
   }
 
-  const fetchUniversities = async () => {
+  async function fetchUniversities() {
     // In a real app, this would fetch from API and merge with local match scores
     // For now, we use the enriched MOCK_UNIVERSITIES to match the requested design
     setUniversities(MOCK_UNIVERSITIES)

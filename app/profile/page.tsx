@@ -60,7 +60,7 @@ export default function ProfilePage() {
         fetchProfile()
     }, [])
 
-    const fetchProfile = async () => {
+    async function fetchProfile() {
         try {
             const user = JSON.parse(localStorage.getItem('user') || '{}')
             if (user._id) {
@@ -228,8 +228,8 @@ export default function ProfilePage() {
                                     </SelectTrigger>
                                     <SelectContent>
                                         <SelectItem value="12th">12th Grade</SelectItem>
-                                        <SelectItem value="bachelors">Bachelor's Degree</SelectItem>
-                                        <SelectItem value="masters">Master's Degree</SelectItem>
+                                        <SelectItem value="bachelors">Bachelor&apos;s Degree</SelectItem>
+                                        <SelectItem value="masters">Master&apos;s Degree</SelectItem>
                                         <SelectItem value="phd">PhD</SelectItem>
                                     </SelectContent>
                                 </Select>
@@ -317,8 +317,8 @@ export default function ProfilePage() {
                                         <SelectValue placeholder="Select degree level" />
                                     </SelectTrigger>
                                     <SelectContent>
-                                        <SelectItem value="bachelor">Bachelor's Degree</SelectItem>
-                                        <SelectItem value="master">Master's Degree</SelectItem>
+                                        <SelectItem value="bachelor">Bachelor&apos;s Degree</SelectItem>
+                                        <SelectItem value="master">Master&apos;s Degree</SelectItem>
                                         <SelectItem value="phd">PhD</SelectItem>
                                         <SelectItem value="certificate">Certificate/Diploma</SelectItem>
                                     </SelectContent>

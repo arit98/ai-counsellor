@@ -87,7 +87,7 @@ export default function DashboardPage() {
     init()
   }, [])
 
-  const fetchProfile = async (userId: string) => {
+  async function fetchProfile(userId: string) {
     try {
       const response = await fetch(`/api/profile?userId=${userId}`)
       const data = await response.json()
@@ -113,7 +113,7 @@ export default function DashboardPage() {
     }
   }
 
-  const fetchStats = async (userId: string) => {
+  async function fetchStats(userId: string) {
     try {
       const savedShortlisted = localStorage.getItem('shortlistedUniversities')
       const savedLocked = localStorage.getItem('lockedUniversities')

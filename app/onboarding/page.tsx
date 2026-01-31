@@ -172,10 +172,10 @@ export default function OnboardingPage() {
                 <div className="relative h-2 rounded-full bg-muted overflow-hidden">
                   <div
                     className={`absolute inset-y-0 left-0 rounded-full transition-all duration-500 ${idx < currentStep
-                        ? 'w-full bg-gradient-to-r from-violet-500 to-cyan-500'
-                        : idx === currentStep
-                          ? 'w-full bg-gradient-to-r from-violet-500 to-violet-400'
-                          : 'w-0'
+                      ? 'w-full bg-gradient-to-r from-violet-500 to-cyan-500'
+                      : idx === currentStep
+                        ? 'w-full bg-gradient-to-r from-violet-500 to-violet-400'
+                        : 'w-0'
                       }`}
                   />
                 </div>
@@ -270,8 +270,8 @@ export default function OnboardingPage() {
                       </SelectTrigger>
                       <SelectContent>
                         <SelectItem value="12th">12th Grade</SelectItem>
-                        <SelectItem value="bachelors">Bachelor's Degree</SelectItem>
-                        <SelectItem value="masters">Master's Degree</SelectItem>
+                        <SelectItem value="bachelors">Bachelor&apos;s Degree</SelectItem>
+                        <SelectItem value="masters">Master&apos;s Degree</SelectItem>
                         <SelectItem value="phd">PhD</SelectItem>
                       </SelectContent>
                     </Select>
@@ -360,8 +360,8 @@ export default function OnboardingPage() {
                         <SelectValue placeholder="Select degree level" />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="bachelor">Bachelor's Degree</SelectItem>
-                        <SelectItem value="master">Master's Degree</SelectItem>
+                        <SelectItem value="bachelor">Bachelor&apos;s Degree</SelectItem>
+                        <SelectItem value="master">Master&apos;s Degree</SelectItem>
                         <SelectItem value="phd">PhD</SelectItem>
                         <SelectItem value="certificate">Certificate/Diploma</SelectItem>
                       </SelectContent>
@@ -411,8 +411,8 @@ export default function OnboardingPage() {
                           key={country}
                           onClick={() => handleCountryToggle(country)}
                           className={`flex items-center gap-3 p-4 rounded-xl border cursor-pointer transition-all ${profileData.countryPreferences.includes(country)
-                              ? 'border-violet-500 bg-violet-500/10'
-                              : 'border-border hover:border-violet-500/50 hover:bg-white/5'
+                            ? 'border-violet-500 bg-violet-500/10'
+                            : 'border-border hover:border-violet-500/50 hover:bg-white/5'
                             }`}
                         >
                           <Checkbox
@@ -441,8 +441,8 @@ export default function OnboardingPage() {
                         <div
                           key={option.value}
                           className={`flex items-center gap-3 p-4 rounded-xl border cursor-pointer transition-all ${profileData.budgetRange === option.value
-                              ? 'border-cyan-500 bg-cyan-500/10'
-                              : 'border-border hover:border-cyan-500/50 hover:bg-white/5'
+                            ? 'border-cyan-500 bg-cyan-500/10'
+                            : 'border-border hover:border-cyan-500/50 hover:bg-white/5'
                             }`}
                           onClick={() => handleInputChange('budgetRange', option.value)}
                         >

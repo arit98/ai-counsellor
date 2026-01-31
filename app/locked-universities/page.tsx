@@ -168,7 +168,7 @@ export default function LockedUniversitiesPage() {
         init()
     }, [])
 
-    const fetchProfile = async () => {
+    async function fetchProfile() {
         try {
             const response = await fetch('/api/profile')
             const data = await response.json()
@@ -222,7 +222,7 @@ export default function LockedUniversitiesPage() {
                     </div>
                     <div>
                         <h3 className="font-semibold text-lg text-foreground mb-1">Lock at least one university to start applying</h3>
-                        <p className="text-sm text-muted-foreground">Once you lock a university, you'll get personalized application guidance, document checklists, and timeline recommendations.</p>
+                        <p className="text-sm text-muted-foreground">Once you lock a university, you&apos;ll get personalized application guidance, document checklists, and timeline recommendations.</p>
                     </div>
                 </div>
 
@@ -235,7 +235,7 @@ export default function LockedUniversitiesPage() {
 
                     {shortlistedUniversities.length === 0 && lockedUniversities.length === 0 ? (
                         <div className="text-center py-12 border-2 border-dashed border-border rounded-xl">
-                            <p className="text-muted-foreground">You haven't shortlisted any universities yet.</p>
+                            <p className="text-muted-foreground">You haven&apos;t shortlisted any universities yet.</p>
                             <Button variant="link" onClick={() => window.location.href = '/universities'}>Go to Discover</Button>
                         </div>
                     ) : null}
